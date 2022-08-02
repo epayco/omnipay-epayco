@@ -1,12 +1,3 @@
-# epayco-omnipay-epayco
-Epayco gateway for Omnipay processing library
-
-[Omnipay](https://github.com/thephpleague/omnipay) is a framework agnostic, multi-gateway payment
-processing library for PHP 5.3+. This package implements PayU Online Payment Gateway support for Omnipay.
-
-## Installation
-
-```php
 <?php
 require 'vendor/autoload.php';
 use Omnipay\Omnipay;
@@ -79,12 +70,12 @@ $response = $gateway->purchase(
         'cancelUrl' => 'www.sampĺe.cancel',
         'returnUrl' => 'www.sampĺe.return',
         'notifyUrl' => 'www.sample.norify',
-        'transactionId' => '123456789',
+        'transactionId' => '12341234',
         'description' => 'pago de prueba',
         'firstName' => 'Ricardo',
         'lastName' => 'Saldarriaga',
         'email' => 'ricardo.saldarriaga@epayco.com',
-        'address' => 'street 123',
+        'address' => 'calle 109 # 123',
         'country' => 'CO'
     ]
 )->send();
@@ -100,4 +91,4 @@ if ($response->isRedirect()) {
     // Payment failed
     echo $response->getMessage();
 }
-```
+
