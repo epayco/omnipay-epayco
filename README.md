@@ -19,19 +19,30 @@ $gateway->setPublicKey('xxxxxxxxxxxxxxxxxx');
 $gateway->setLang('en');
 $gateway->setTestMode(true);
 
-$cart = array();
+const currency = 'USD';
+const cancelUrl = 'www.sampĺe.cancel';
+const returnUrl = 'www.sampĺe.return';
+const notifyUrl = 'www.sampĺe.norify';
 
-$i = 0;
+$transactionId = '12341234';
+$description = '12341234';
+$firstName = 'john';
+$lastName = 'doe';
+$email = 'jhon@example.com';
+$address ='street # 123';
+$country = 'CO';
 
 $product_id = 123;
+$cart = array();
+$i = 0;
 $cart[] = array(
-    'name' => 'camisa rosa',
+    'name' => 'black shirt',
     'quantity' => 2,
     'type' => 'product',
     'price' => round(6.99, 2),
 );
 $cart[1] = array(
-    'name' => 'jean azul',
+    'name' => 'blue jean',
     'quantity' => 1,
     'type' => 'product',
     'price' => round(12.99, 2),
@@ -56,6 +67,7 @@ $cart[] = array(
 );
 $product_price=0;
 $tax = 0;
+$ico = 0;
 foreach ($cart as $order_item_id => $product) {
     if($product['type'] == "tax"){
         $tax += $product['price'];
@@ -74,18 +86,18 @@ $response = $gateway->purchase(
         'amount' => $product_price,
         'subTotal' => $product_subtotal,
         'tax' => $tax,
-        'ico' => 0,
-        'currency' => 'USD',
-        'cancelUrl' => 'www.sampĺe.cancel',
-        'returnUrl' => 'www.sampĺe.return',
-        'notifyUrl' => 'www.sample.norify',
-        'transactionId' => '123456789',
-        'description' => 'pago de prueba',
-        'firstName' => 'Ricardo',
-        'lastName' => 'Saldarriaga',
-        'email' => 'ricardo.saldarriaga@epayco.com',
-        'address' => 'street 123',
-        'country' => 'CO'
+        'ico' => $ico,
+        'currency' => currency,
+        'cancelUrl' => cancelUrl,
+        'returnUrl' => returnUrl,
+        'notifyUrl' => notifyUrl,
+        'transactionId' => $transactionId,
+        'description' => $description,
+        'firstName' => $firstName,
+        'lastName' => $lastName,
+        'email' => $email,
+        'address' => $address,
+        'country' => $country
     ]
 )->send();
 
