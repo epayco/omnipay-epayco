@@ -113,6 +113,16 @@ class CreditCardRequest extends AbstractRequest
         return $this->setParameter('tax', $value);
     }
 
+    public function getIco()
+    {
+        return $this->getParameter('ico');
+    }
+
+    public function setIco($value)
+    {
+        return $this->setParameter('ico', $value);
+    }
+
     public function getCountry()
     {
         return $this->getParameter('country');
@@ -121,6 +131,16 @@ class CreditCardRequest extends AbstractRequest
     public function setCountry($value)
     {
         return $this->setParameter('country', $value);
+    }
+
+    public function getHasCvv()
+    {
+        return $this->getParameter('hascvv');
+    }
+
+    public function setHasCvv($value)
+    {
+        return $this->setParameter('hascvv', $value);
     }
 
     /**
@@ -152,6 +172,7 @@ class CreditCardRequest extends AbstractRequest
         $data['amount'] = $this->getAmount();
         $data['subTotal'] = $this->getSubTotal();
         $data['tax'] = $this->getTax();
+        $data['ico'] = $this->getIco();
         $data['currency'] = $this->getCurrency();
         $data['cancelurl'] = $this->getCancelUrl();
         $data['returnurl'] = $this->getReturnUrl();
@@ -165,7 +186,7 @@ class CreditCardRequest extends AbstractRequest
         $data['test'] = $this->getTestMode();
         $data['cart'] = $this->getCart();
         $data['country'] = $this->getCountry();
-
+        $data['hascvv'] = $this->getHasCvv();
         return $data;
     }
 
