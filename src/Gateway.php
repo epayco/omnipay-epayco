@@ -139,6 +139,16 @@ class Gateway extends AbstractGateway
         return $this->setParameter('tax', $value);
     }
 
+    public function getIco()
+    {
+        return $this->getParameter('ico');
+    }
+
+    public function setIco($value)
+    {
+        return $this->setParameter('ico', $value);
+    }
+
     public function getCountry()
     {
         return $this->getParameter('country');
@@ -147,6 +157,16 @@ class Gateway extends AbstractGateway
     public function setCountry($value)
     {
         return $this->setParameter('country', $value);
+    }
+
+    public function getHasCvv()
+    {
+        return $this->getParameter('hascvv');
+    }
+
+    public function setHasCvv($value)
+    {
+        return $this->setParameter('hascvv', $value);
     }
 
     /**
