@@ -159,6 +159,16 @@ class Gateway extends AbstractGateway
         return $this->setParameter('country', $value);
     }
 
+    public function getHasCvv()
+    {
+        return $this->getParameter('hascvv');
+    }
+
+    public function setHasCvv($value)
+    {
+        return $this->setParameter('hascvv', $value);
+    }
+
     /**
      * Getter: get cart items.
      *

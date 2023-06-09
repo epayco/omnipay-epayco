@@ -97,7 +97,8 @@ $response = $gateway->purchase(
         'lastName' => $lastName,
         'email' => $email,
         'address' => $address,
-        'country' => $country
+        'country' => $country,
+        'hasCvv' => true
     ]
 )->send();
 

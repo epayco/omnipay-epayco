@@ -133,6 +133,16 @@ class CreditCardRequest extends AbstractRequest
         return $this->setParameter('country', $value);
     }
 
+    public function getHasCvv()
+    {
+        return $this->getParameter('hascvv');
+    }
+
+    public function setHasCvv($value)
+    {
+        return $this->setParameter('hascvv', $value);
+    }
+
     /**
      * Getter: get cart items.
      *
@@ -176,7 +186,7 @@ class CreditCardRequest extends AbstractRequest
         $data['test'] = $this->getTestMode();
         $data['cart'] = $this->getCart();
         $data['country'] = $this->getCountry();
-
+        $data['hascvv'] = $this->getHasCvv();
         return $data;
     }
 
