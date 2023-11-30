@@ -74,6 +74,7 @@ class Gateway extends AbstractGateway
             'username' => '',
             'pkey' => '',
             'publicKey' => '',
+            'privateKey' => '',
             'lang' => 'es',
             'testMode' => false,
         );
@@ -107,6 +108,16 @@ class Gateway extends AbstractGateway
     public function setPublicKey($value)
     {
         return $this->setParameter('publicKey', $value);
+    }
+    
+    public function getPrivateKey()
+    {
+        return $this->getParameter('privateKey');
+    }
+
+    public function setPrivateKey($value)
+    {
+        return $this->setParameter('privateKey', $value);
     }
 
     public function getLang()
