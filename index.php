@@ -7,16 +7,17 @@ $gateway = Omnipay::create('Epayco');
 $gateway->setUsername('xxxx');
 $gateway->setPkey('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
 $gateway->setPublicKey('xxxxxxxxxxxxxxxxxx');
+$gateway->setPrivateKey('xxxxxxxxxxxxxxxxxx');
 $gateway->setLang('en');
-$gateway->setTestMode(true);
+$gateway->setTestMode(false);
 
-const currency = 'USD';
+const currency = 'COP';
 const cancelUrl = 'www.sampĺe.cancel';
 const returnUrl = 'www.sampĺe.return';
 const notifyUrl = 'www.sampĺe.norify';
 
 $transactionId = '12341234';
-$description = '12341234';
+$description = 'Prueba ';
 $firstName = 'john';
 $lastName = 'doe';
 $email = 'jhon@example.com';
@@ -42,7 +43,7 @@ $cart[] = array(
     'name' => 'Shipping Fee',
     'quantity' => 1,
     'type' => 'shipping',
-    'price' => round(5.99, 2),
+    'price' => round(10005.99, 2),
 );
 $cart[] = array(
     'name' => 'Discount',

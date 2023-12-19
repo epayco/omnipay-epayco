@@ -16,6 +16,7 @@ $gateway = Omnipay::create('Epayco');
 $gateway->setUsername('xxxx');
 $gateway->setPkey('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
 $gateway->setPublicKey('xxxxxxxxxxxxxxxxxx');
+$gateway->setPrivateKey('xxxxxxxxxxxxxxxxxx');
 $gateway->setLang('en');
 $gateway->setTestMode(true);
 

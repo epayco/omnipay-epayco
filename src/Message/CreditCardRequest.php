@@ -43,6 +43,16 @@ class CreditCardRequest extends AbstractRequest
         return $this->setParameter('publicKey', $value);
     }
 
+    public function getPrivateKey()
+    {
+        return $this->getParameter('privateKey');
+    }
+
+    public function setPrivateKey($value)
+    {
+        return $this->setParameter('privateKey', $value);
+    }
+
     public function getLang()
     {
         return $this->getParameter('lang');
@@ -168,6 +178,7 @@ class CreditCardRequest extends AbstractRequest
         $this->validate('amount', 'returnUrl', 'notifyUrl');
         $baseData = $this->getBaseData();
         $data['public_key'] = $baseData['publicKey'];
+        $data['private_key'] = $baseData['privateKey'];
         $data['lang'] = $baseData['lang'];
         $data['amount'] = $this->getAmount();
         $data['subTotal'] = $this->getSubTotal();
@@ -205,6 +216,7 @@ class CreditCardRequest extends AbstractRequest
         $data['user'] = $this->getUsername();
         $data['pkey'] = $this->getPkey();
         $data['publicKey'] = $this->getPublicKey();
+        $data['privateKey'] = $this->getPrivateKey();
         $data['lang'] = $this->getLang();
 
         return $data;
