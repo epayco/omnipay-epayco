@@ -4,22 +4,23 @@ use Omnipay\Omnipay;
 
 $gateway = Omnipay::create('Epayco');
 
-$gateway->setUsername('xxxx');
-$gateway->setPkey('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
-$gateway->setPublicKey('xxxxxxxxxxxxxxxxxx');
+$gateway->setUsername('613729');
+$gateway->setPkey('0be55443eb875e0745a85c0cea13eced61b91f2a');
+$gateway->setPublicKey('221b0d733d5ef3cd35501473390c81ee');
+$gateway->setPrivateKey('0c3fb69a02a0ad6d1fed170a3b9dc081');
 $gateway->setLang('en');
-$gateway->setTestMode(true);
+$gateway->setTestMode(false);
 
-const currency = 'USD';
-const cancelUrl = 'www.sampĺe.cancel';
-const returnUrl = 'www.sampĺe.return';
-const notifyUrl = 'www.sampĺe.norify';
+const currency = 'COP';
+const cancelUrl = 'https://plugins.epayco.io/testing/prueba/index.html';
+const returnUrl = 'https://plugins.epayco.io/testing/prueba/index.html';
+const notifyUrl = 'https://plugins.epayco.io/';
 
-$transactionId = '12341234';
-$description = '12341234';
+$transactionId = '';
+$description = 'Prueba pre-prod';
 $firstName = 'john';
 $lastName = 'doe';
-$email = 'jhon@example.com';
+$email = 'litapao.1621@gmail.com';
 $address ='street # 123';
 $country = 'CO';
 
@@ -42,7 +43,7 @@ $cart[] = array(
     'name' => 'Shipping Fee',
     'quantity' => 1,
     'type' => 'shipping',
-    'price' => round(5.99, 2),
+    'price' => round(10005.99, 2),
 );
 $cart[] = array(
     'name' => 'Discount',

@@ -2,7 +2,7 @@
 Epayco gateway for Omnipay processing library
 
 [Omnipay](https://github.com/thephpleague/omnipay) is a framework agnostic, multi-gateway payment
-processing library for PHP 5.3+. This package implements PayU Online Payment Gateway support for Omnipay.
+processing library for PHP 5.3+.
 
 ## Installation
 
@@ -16,6 +16,7 @@ $gateway = Omnipay::create('Epayco');
 $gateway->setUsername('xxxx');
 $gateway->setPkey('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
 $gateway->setPublicKey('xxxxxxxxxxxxxxxxxx');
+$gateway->setPrivateKey('xxxxxxxxxxxxxxxxxx');
 $gateway->setLang('en');
 $gateway->setTestMode(true);
 
@@ -97,7 +98,8 @@ $response = $gateway->purchase(
         'lastName' => $lastName,
         'email' => $email,
         'address' => $address,
-        'country' => $country
+        'country' => $country,
+        'hasCvv' => true
     ]
 )->send();
 
