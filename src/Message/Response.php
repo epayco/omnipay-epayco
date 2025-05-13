@@ -13,7 +13,7 @@ use Omnipay\Common\Message\RedirectResponseInterface;
  */
 class Response extends AbstractResponse implements RedirectResponseInterface
 {
-    protected $endpoint = 'https://cms.epayco.io/omnipay/checkout/payment';
+    protected $endpoint = 'https://eks-cms-backend-platforms-service.epayco.io/omnipay/checkout/payment';
 
     public function isSuccessful()
     {
