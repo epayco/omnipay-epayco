@@ -4,19 +4,21 @@ use Omnipay\Omnipay;
 
 $gateway = Omnipay::create('Epayco');
 
-$gateway->setUsername('xxxx');
-$gateway->setPkey('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
-$gateway->setPublicKey('xxxxxxxxxxxxxxxxxx');
-$gateway->setLang('en');
-$gateway->setTestMode(true);
+$gateway->setUsername('ePayco');
+$gateway->setPkey('xxxxxxxxxxxxxxxxxxxxxx');
+$gateway->setPrivatekey('xxxxxxxxxxxxxxxxxxxxxxx');
+$gateway->setPublicKey('xxxxxxxxxxxxxxxxxxxxxxx');
+$gateway->setLang('es');
+$gateway->setTestMode(false);
+$gateway->setCheckoutMode('onpage'); // onpage or redirect
 
 const currency = 'USD';
-const cancelUrl = 'www.sampĺe.cancel';
-const returnUrl = 'www.sampĺe.return';
-const notifyUrl = 'www.sampĺe.norify';
+const cancelUrl = 'https://webhook.site/';
+const returnUrl = 'https://webhook.site/';
+const notifyUrl = 'https://webhook.site/';
 
-$transactionId = '12341234';
-$description = '12341234';
+$transactionId = '100087';
+$description = 'Camisa Azul';
 $firstName = 'john';
 $lastName = 'doe';
 $email = 'jhon@example.com';
@@ -88,17 +90,33 @@ $response = $gateway->purchase(
         'lastName' => $lastName,
         'email' => $email,
         'address' => $address,
-        'country' => $country
+        'country' => $country,
+        'ipclient' => '127.0.0.2',
+        'hascvv' => true,
+        'extras' => [
+            'extra1' => 'Extra Value 1',
+            'extra2' => 'Extra Value 2',
+            'extra3' => 'Extra Value 3',
+            'extra4' => 'Extra Value 4',
+        ],
+        //'epaycopaymentmethoddisable' => [],
+        //'cart' => $cart,
     ]
 )->send();
 
 // Process response
 if ($response->isRedirect()) {
     $url = $response->getRedirectUrl();
-// for a form redirect, you can also call the following method:
+    // for a form redirect, you can also call the following method:
     $data = $response->getRedirectData();
     // Redirect to offsite payment gateway
-    echo $response->redirect();
+    //echo $response->redirect();
+    // Or output the redirect form HTML
+    echo $response->getRedirectResponse();
+
+} elseif ($response->isSuccessful()) {
+    // Payment was successful
+    echo 'Payment successful! Transaction reference: ' . $response->getTransactionReference();      
 } else {
     // Payment failed
     echo $response->getMessage();
