@@ -99,6 +99,16 @@ class Gateway extends AbstractGateway
         return $this->setParameter('pkey', $value);
     }
 
+    public function getPrivatekey()
+    {
+        return $this->getParameter('privatekey');
+    }
+
+    public function setPrivatekey($value)
+    {
+        return $this->setParameter('privatekey', $value);
+    }
+
     public function getPublicKey()
     {
         return $this->getParameter('publicKey');
@@ -107,6 +117,16 @@ class Gateway extends AbstractGateway
     public function setPublicKey($value)
     {
         return $this->setParameter('publicKey', $value);
+    }
+
+    public function getCheckoutMode()
+    {
+        return $this->getParameter('checkoutmode');
+    }
+
+    public function setCheckoutMode($value)
+    {
+        return $this->setParameter('checkoutmode', $value);
     }
 
     public function getLang()
@@ -168,6 +188,47 @@ class Gateway extends AbstractGateway
     {
         return $this->setParameter('hascvv', $value);
     }
+
+    public function setIpClient($value)
+    {
+        return $this->setParameter('ipclient', $value);
+    }
+
+    public function getIpClient()
+    {
+        return $this->getParameter('ipclient');
+    }
+
+    public function setExtraEpayco($value)
+    {
+        return $this->setParameter('extraepayco', $value);
+    }
+
+    public function getExtraEpayco()
+    {
+        return $this->getParameter('extraepayco');
+    }
+
+    public function setExtras($value)
+    {
+        return $this->setParameter('extras', $value);
+    }
+
+    public function getExtras()
+    {
+        return $this->getParameter('extras');
+    }
+
+    public function setEpaycoPaymentMethodDisable($value)
+    {
+        return $this->setParameter('epaycopaymentmethoddisable', $value);
+    }
+
+    public function getEpaycoPaymentMethodDisable()
+    {
+        return $this->getParameter('epaycopaymentmethoddisable');
+    }
+
 
     /**
      * Getter: get cart items.

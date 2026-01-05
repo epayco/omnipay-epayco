@@ -33,6 +33,16 @@ class CreditCardRequest extends AbstractRequest
         return $this->setParameter('pkey', $value);
     }
 
+    public function getPrivateKey()
+    {
+        return $this->getParameter('privateKey');
+    }
+
+    public function setPrivateKey($value)
+    {
+        return $this->setParameter('privateKey', $value);
+    }
+
     public function getPublicKey()
     {
         return $this->getParameter('publicKey');
@@ -41,6 +51,16 @@ class CreditCardRequest extends AbstractRequest
     public function setPublicKey($value)
     {
         return $this->setParameter('publicKey', $value);
+    }
+
+    public function getCheckoutMode()
+    {
+        return $this->getParameter('checkoutmode');
+    }
+
+    public function setCheckoutMode($value)
+    {
+        return $this->setParameter('checkoutmode', $value);
     }
 
     public function getLang()
@@ -143,6 +163,46 @@ class CreditCardRequest extends AbstractRequest
         return $this->setParameter('hascvv', $value);
     }
 
+    public function setIpClient($value)
+    {
+        return $this->setParameter('ipclient', $value);
+    }
+
+    public function getIpClient()
+    {
+        return $this->getParameter('ipclient');
+    }
+
+    public function setExtraEpayco($value)
+    {
+        return $this->setParameter('extraepayco', $value);
+    }
+
+    public function getExtraEpayco()
+    {
+        return $this->getParameter('extraepayco');
+    }
+
+    public function setExtras($value)
+    {
+        return $this->setParameter('extras', $value);
+    }
+
+    public function getExtras()
+    {
+        return $this->getParameter('extras');
+    }
+
+    public function setEpaycoPaymentMethodDisable($value)
+    {
+        return $this->setParameter('epaycopaymentmethoddisable', $value);
+    }
+
+    public function getEpaycoPaymentMethodDisable()
+    {
+        return $this->getParameter('epaycopaymentmethoddisable');
+    }
+
     /**
      * Getter: get cart items.
      *
@@ -167,35 +227,65 @@ class CreditCardRequest extends AbstractRequest
     {
         $this->validate('amount', 'returnUrl', 'notifyUrl');
         $baseData = $this->getBaseData();
+        $name_billing = $this->getFirstName() . ' ' . $this->getLastName();
+        $myIp = $this->getIpClient() ?: $this->getParameter('ipclient');
+        $payload = array(
+            "name"=>$this->getDescription(),
+            "description"=>$this->getDescription(),
+            "invoice"=>(string)$this->getTransactionId(),
+            "currency"=>$this->getCurrency(),
+            "amount"=>floatval($this->getAmount()),
+            "taxBase"=>floatval($this->getSubTotal()),
+            "tax"=>floatval($this->getTax()),
+            "taxIco"=>floatval($this->getIco()),
+            "country"=>$this->getCountry(),
+            "lang"=> $this->getLang(),
+            "confirmation"=>$this->getNotifyUrl(),
+            "response"=>$this->getReturnUrl(),
+            "billing" => [
+                "name" => $name_billing,
+                "address" => $this->getAddress(),
+                "email" => $this->getEmail(),
+                //"mobilePhone" => $phone_billing
+            ],
+            "autoclick"=> true,
+            "ip"=>$myIp,
+            "test"=>$this->getTestMode(),
+            "extras" => $this->getExtras(),
+            "extrasEpayco" => [
+                "extra5" => $this->getExtraEpayco()
+            ],
+            "epaycoMethodsDisable" => $this->getEpaycoPaymentMethodDisable() ?? [],
+            "method"=> "POST",
+            "checkout_version"=>"2",
+            "autoClick" => false,
+            "noRedirectOnClose"=> true,
+            "forceResponse"=>false,//mostrar detalle de orden
+            "uniqueTransactionPerBill"=> false,
+        );
+        $formated_data = array_map(function ($value) {
+                return is_string($value) ? mb_convert_encoding($value, 'UTF-8', 'UTF-8') : $value;
+            }, $payload);
+        $json = json_encode($formated_data);
+        if ($json === false) {
+            // json_encode failed; return empty string to satisfy expected string return type
+            return '';
+        }
         $data['public_key'] = $baseData['publicKey'];
-        $data['lang'] = $baseData['lang'];
-        $data['amount'] = $this->getAmount();
-        $data['subTotal'] = $this->getSubTotal();
-        $data['tax'] = $this->getTax();
-        $data['ico'] = $this->getIco();
-        $data['currency'] = $this->getCurrency();
-        $data['cancelurl'] = $this->getCancelUrl();
-        $data['returnurl'] = $this->getReturnUrl();
-        $data['notifyUrl'] = $this->getNotifyUrl();
-        $data['transactionId'] = $this->getTransactionId();
-        $data['description'] = $this->getDescription();
-        $data['firstName'] = $this->getFirstName();
-        $data['lastName'] = $this->getLastName();
-        $data['email'] = $this->getEmail();
-        $data['address'] = $this->getAddress();
-        $data['test'] = $this->getTestMode();
-        $data['cart'] = $this->getCart();
-        $data['country'] = $this->getCountry();
-        $data['hascvv'] = $this->getHasCvv();
+        $data['private_key'] = $baseData['privateKey'];
+        $data['checkoutmode'] = $baseData['checkoutmode'];
+        $data['testMode'] = $baseData['testmode'];
+        $data['payload'] = $formated_data;
+        //$data['token'] = base64_encode($json);
         return $data;
     }
 
     public function sendData($data)
     {
-        $data['reference'] = $data['transactionId'] ?? uniqid();
+        /*$data['transactionId'] = $data['transactionId'] ?? uniqid();
         $data['success'] = true;
         $data['message'] = $data['success'] ? 'Success' : 'Failure';
-
+        */
         return $this->response = new Response($this, $data);
     }
 
@@ -205,7 +295,10 @@ class CreditCardRequest extends AbstractRequest
         $data['user'] = $this->getUsername();
         $data['pkey'] = $this->getPkey();
         $data['publicKey'] = $this->getPublicKey();
+        $data['privateKey'] = $this->getPrivateKey();
         $data['lang'] = $this->getLang();
+        $data['checkoutmode'] = $this->getCheckoutMode();
+        $data['testmode'] = $this->getTestMode();
 
         return $data;
     }
