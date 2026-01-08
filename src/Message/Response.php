@@ -124,6 +124,10 @@ class Response extends AbstractResponse implements RedirectResponseInterface
     {
         $hiddenFields = '';
         foreach ($this->getRedirectData() as $key => $value) {
+            // Skip non-scalar values
+            if (is_array($value) || is_object($value)) {
+                continue;
+            }
             $hiddenFields .= sprintf(
                 '<input type="hidden" name="%1$s" value="%2$s" />',
                 htmlentities($key, ENT_QUOTES, 'UTF-8', false),
@@ -316,9 +320,9 @@ class Response extends AbstractResponse implements RedirectResponseInterface
     }
 
     private function formatErrorMessage($epayco_status_session){
-        $messageError = $epayco_status_session->textResponse;
+        $messageError = (is_object($epayco_status_session) && isset($epayco_status_session->textResponse)) ? $epayco_status_session->textResponse : '';
         $errorMessage = "";
-        if (isset($epayco_status_session->data->errors)) {
+        if (is_object($epayco_status_session) && isset($epayco_status_session->data->errors)) {
             $errors = $epayco_status_session->data->errors;
             if(is_array($errors)){
                 foreach ($errors as $error) {
@@ -327,12 +331,12 @@ class Response extends AbstractResponse implements RedirectResponseInterface
             }else{
                 $errorMessage = $errors. "\n";
             }
-        } elseif (isset($epayco_status_session->data->error->errores)) {
+        } elseif (is_object($epayco_status_session) && isset($epayco_status_session->data->error->errores)) {
             $errores = $epayco_status_session->data->error->errores;
             foreach ($errores as $error) {
                 $errorMessage = $error['errorMessage'] . "\n";
             }
-        }elseif(isset($epayco_status_session->error)){
+        }elseif(is_object($epayco_status_session) && isset($epayco_status_session->error)){
             $errorMessage = $epayco_status_session->error . "\n";
         }
         //$processReturnFailMessage = $messageError . " " . $errorMessage;
