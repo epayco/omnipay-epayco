@@ -61,10 +61,10 @@ const notifyUrl = 'https://webhook.site/';
 $transactionId = '12341234';
 $description = 'blue jean';
 $firstName = 'jhon';
-$lastName = 'herrera';
-$email = 'jhonherrera@example.com';
-$address = 'Calle 54 # 26-27';
-$country = 'CO';
+$lastName = 'doe';
+$email = 'prueba@example.com';
+$address = 'street 123';
+$country = 'US';
 
 // Build shopping cart
 $cart = array(
