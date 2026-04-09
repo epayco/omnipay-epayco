@@ -18,7 +18,7 @@ $gateway->setCheckoutMode('onpage'); // Options: 'onpage' or 'redirect'
 ### Processing a Payment
 
 ```php
-<?php
+
 // Transaction details
 const currency = 'USD';
 const cancelUrl = 'https://webhook.site/';
